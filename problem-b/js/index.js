@@ -2,16 +2,21 @@
 
 /* Define a function `addFour()` that takes a single argument 
    and returns a value 4 greater than the input.*/
+   function addFour(argument){
+    return argument+4;
+   }
 
    
 /* Create and log a variable `twelve` that is the result of passing 8 to your
    addFour() function. */
+   let twelve = addFour(8);
+   console.log(twelve);
 
    
 /* Create and log a variable `twelveString` that is the result of passing "8" 
    (a string) to your addFour() function. Consider what this tells you about how
   the function should be explained (e.g., in a comment). */
-
+   let twelveString = addFour('8');
   
 
 /* Define a function `compoundInterest()` that takes three parameters: 
@@ -25,7 +30,10 @@
    You can call the method and log the result to check your work. Compare to
      http://www.mathwarehouse.com/calculators/continuous-compound-interest-calculator.php
 */
-
+    function compoundInterest(initialBalance, annualRate, years){
+      let totalBalance = initialBalance * Math.exp(annualRate * years);
+      return totalBalance;
+    }
 
 
 /* Define a function `fizzBuzz()` that takes in a single number as an argument.
@@ -35,8 +43,24 @@
    number. For numbers which are multiples of both three and five, the array 
    should contain "FizzBuzz" instead of the number.
    The returned array should be empty for arguments less than 1. */
-
-   
+   function fizzBuzz(number) {
+    if (number<1) {
+      return []; 
+    }
+    let arr = [];
+    for (let i = 1; i <= number; i++) {
+      if (i % 3 === 0 && i % 5 === 0) {
+        arr.push("FizzBuzz"); 
+      } else if (i % 3 === 0) {
+        arr.push("Fizz"); 
+      } else if (i % 5 === 0) {
+        arr.push("Buzz"); 
+      } else {
+        arr.push(i); 
+      }
+    }
+    return arr;
+  }
 
 /* Define a function `getLetterFrequencies()` that takes in a single string as 
    an argument. The function should *return* an Object whose keys are characters
@@ -47,8 +71,18 @@
    each letter, increase the value associated with that key by one. Watch out 
    for if the letter is not in the Object yet!
    You can test this method with a word like "Mississippi". */
-
-   
+    function getLetterFrequencies(str) {
+      let frequencies = {};
+      for (let i=0; i<str.length; i++) {
+        let char = str[i];
+        if (frequencies[char]) {
+          frequencies[char]++;
+        } else {
+          frequencies[char] = 1;
+        }
+      }
+    return frequencies;
+    }
 
 /* Create a variable `deck` that represents a deck of modern playing cards
    (https://en.wikipedia.org/wiki/Playing_card). This variable should be an
@@ -59,10 +93,18 @@
         11-14 represent a Jack, Queen, King, or Ace respectively).
     Tip: use a pair of nested loops to add each combination of suit and rank to 
     the `deck` array! 
-    
     You can log out the `deck` to check your work! */
-
-    
+    let deck = [];
+    const suits = ["hearts", "diamonds", "clubs", "spades"];
+    const numRanks = 13;
+    for (let suit of suits) {
+      for (let rank=2; rank<=numRanks; rank++) {
+        deck.push({suit: suit, rank: rank});
+      }
+    }
+    for (let suit of suits) {
+      deck.push({suit: suit, rank: 14});
+    }
 
 //You can test the below functions by creating e.g., a `pokerHand` array that 
 //contains five cards from the `deck`.
@@ -72,19 +114,46 @@
    is in that array.
    Hint: use a loop to check each card. */
 
+   function containsQueenOfHearts(cards) {
+    for (let card of cards) {
+      if (card.suit==="hearts" && card.rank===12) { 
+        return true; 
+      }
+    }
+    return false; 
+  }
    
-
 /* Define a function `getHighCard()` that takes in an array of "card" objects
   and returns the card object with the highest value. The "high card" is the one
   with the highest rank. Cards of different suits but the same rank are 
   considered to have the same value, and either is a valid result */
 
+  function getHighCard(cards) {
+    let highCard=cards[0];
+    for (let i=1; i<cards.length; i++) {
+      if (cards[i].rank>highCard.rank) {
+        highCard = cards[i];
+      }
+    }
+  return highCard;
+}
   
 
 /* Define a function `isFlush()` that takes in an array of "card" objects and
    returns whether or not the cards all have the same _suit_. */
 
-   
+   function isFlush(cards) {
+    if (cards.length===0) {
+      return false;
+    }
+    const thisSuit = cards[0].suit;
+    for (let i=1; i<cards.length; i++) {
+      if (cards[i].suit !== thisSuit) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 /* Extra challenge: define a function `hasPair()` that takes in an array of 
    "card" objects and returns whether or not there is at least one _pair_ (two 
